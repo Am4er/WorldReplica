@@ -1,14 +1,8 @@
 # WorldReplica
 
-[![Build](https://github.com/Am4er/WorldReplica/actions/workflows/build.yml/badge.svg)](https://github.com/Am4er/WorldReplica/actions/workflows/build.yml)
-
 A small Fabric mod for copying builds. Mark an area with a golden axe, save it as a `.schem` file and paste it somewhere else, in the same world or another one.
 
 Files use the Sponge schematic format, the same one WorldEdit uses, so builds move between the two. Older version 2 files from WorldEdit load too.
-
-## Download
-
-Get the latest jar from the [Releases](https://github.com/Am4er/WorldReplica/releases) page and put it in your `mods` folder together with Fabric API and Fabric Language Kotlin.
 
 ## Requirements
 
