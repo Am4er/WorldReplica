@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "worldreplica",
+  "version": "${version}",
+  "name": "WorldReplica",
+  "description": "Select an area with a golden axe, save it as a schematic and load it back.",
+  "authors": [
+    "Am4er"
+  ],
+  "contact": {
+    "homepage": "https://github.com/Am4er/WorldReplica",
+    "sources": "https://github.com/Am4er/WorldReplica",
+    "issues": "https://github.com/Am4er/WorldReplica/issues"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/worldreplica/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "io.github.am4er.worldreplica.fabric.WorldReplicaFabricMod"
+      }
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "fabric-language-kotlin": ">=1.14.1+kotlin.2.4.20"
+  }
+}

@@ -1,0 +1,3 @@
+plugins {
+    id("worldreplica-conventions")
+}

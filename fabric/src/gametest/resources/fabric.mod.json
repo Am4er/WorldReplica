@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "worldreplica-gametest",
+  "version": "1.0.0",
+  "name": "WorldReplica Game Tests",
+  "authors": [
+    "Am4er"
+  ],
+  "environment": "*",
+  "entrypoints": {
+    "fabric-gametest": [
+      "io.github.am4er.worldreplica.test.WorldReplicaGameTest"
+    ]
+  },
+  "depends": {
+    "worldreplica": "*"
+  }
+}
