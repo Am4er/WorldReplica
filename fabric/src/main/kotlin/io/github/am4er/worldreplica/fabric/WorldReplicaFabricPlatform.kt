@@ -15,7 +15,8 @@ class WorldReplicaFabricPlatform(
     gameDirectory: Path,
     val configDirectory: Path,
     version: String,
-) : WorldReplicaPlatform(logger, gameDirectory) {
+    extraSchematicDirectories: List<Path> = emptyList(),
+) : WorldReplicaPlatform(logger, gameDirectory, extraSchematicDirectories) {
     val command = WorldReplicaCommand(version)
 
     override fun onStart() {

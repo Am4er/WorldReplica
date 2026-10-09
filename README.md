@@ -23,6 +23,8 @@ On a dedicated server only the server needs the mod. For singleplayer, install i
 
 A paste lands relative to where you stood when you saved, like WorldEdit's `//copy` and `//paste`.
 
+`/wr load` also looks in WorldEdit's and FAWE's schematics folders, so `.schem` files saved with WorldEdit load without copying them over. Saves always go to `schematics/`, and a file there wins over one with the same name in the other folders.
+
 Big saves and pastes run a few chunks per tick, so the server keeps running while they work. Progress shows above the hotbar and `/wr cancel` stops them. A single schematic can hold up to about two billion blocks.
 
 ## Commands
@@ -61,6 +63,8 @@ Keep the URL private. Anyone who has it can post in that channel.
 | Path | Contents |
 | --- | --- |
 | `schematics/` | Saved schematics |
+| `config/worldedit/schematics/` | WorldEdit's schematics, also read by `/wr load` |
+| `plugins/FastAsyncWorldEdit/schematics/` | FAWE's schematics, also read by `/wr load` |
 | `config/worldreplica/discord.json` | Discord settings |
 
 ## Building

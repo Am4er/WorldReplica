@@ -229,6 +229,41 @@ class WorldReplicaGameTest {
             .thenSucceed()
     }
 
+    @GameTest(maxTicks = 200)
+    fun loadsFromWorldEditFolder(helper: GameTestHelper) {
+        val level = helper.level
+        val file = FabricLoader.getInstance().configDir.resolve("worldedit").resolve("schematics").resolve("gametest_worldedit.schem")
+        Files.createDirectories(file.parent)
+        NbtIo.writeCompressed(CompoundTag().apply {
+            put("Schematic", CompoundTag().apply {
+                putInt("Version", 3)
+                putInt("DataVersion", SharedConstants.getCurrentVersion().dataVersion().version())
+                putShort("Width", 1)
+                putShort("Height", 1)
+                putShort("Length", 1)
+                putIntArray("Offset", intArrayOf(1, 0, 0))
+                put("Blocks", CompoundTag().apply {
+                    put("Palette", CompoundTag().apply { putInt("minecraft:diamond_block", 0) })
+                    putByteArray("Data", byteArrayOf(0))
+                })
+            })
+        }, file)
+
+        val anchor = helper.absolutePos(BlockPos(2, 1, 2))
+        val player = helper.makeMockServerPlayerInLevel()
+        standAt(player, anchor)
+        helper.assertTrue("gametest_worldedit" in worldReplica.schematics.names(), "listed from the WorldEdit folder")
+        runAs(player, "wr load gametest_worldedit")
+
+        helper.startSequence()
+            .thenWaitUntil { helper.assertFalse(worldReplica.jobs.isRunning(player.uuid), "load finished") }
+            .thenExecute {
+                helper.assertEq(level.getBlockState(anchor.offset(1, 0, 0)).block, Blocks.DIAMOND_BLOCK, "diamond block")
+                Files.deleteIfExists(file)
+            }
+            .thenSucceed()
+    }
+
     @GameTest(maxTicks = 6000)
     fun savesAndLoadsMoreThanTenMillionBlocks(helper: GameTestHelper) {
         val level = helper.level

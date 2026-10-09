@@ -15,6 +15,10 @@ class WorldReplicaFabricMod : ModInitializer {
             loader.gameDir,
             loader.configDir.resolve("worldreplica"),
             version,
+            listOf(
+                loader.configDir.resolve("worldedit").resolve("schematics"),
+                loader.gameDir.resolve("plugins").resolve("FastAsyncWorldEdit").resolve("schematics"),
+            ),
         )
         platform.load()
         platform.start()

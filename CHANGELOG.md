@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- `/wr load` also finds schematics in WorldEdit's and FAWE's schematics folders
+
 ## 1.0.0
 
 - Selection wand with two positions, given by `/wr select`

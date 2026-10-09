@@ -10,7 +10,10 @@ import kotlin.io.path.isDirectory
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.nameWithoutExtension
 
-class PlatformSchematicStorage(override val directory: Path) : SchematicStorage {
+class PlatformSchematicStorage(
+    override val directory: Path,
+    private val extraDirectories: List<Path> = emptyList(),
+) : SchematicStorage {
     private val tempDirectory = directory.resolve(".worldreplica-tmp")
 
     override fun isValidName(name: String) = SAVE_NAME.matches(name)
@@ -20,12 +23,16 @@ class PlatformSchematicStorage(override val directory: Path) : SchematicStorage 
     override fun find(name: String): Path? {
         val base = name.removeSuffix(".schem")
         if (base.isEmpty() || base.startsWith('.') || base.any { it == '/' || it == '\\' || it == ':' }) return null
-        return file(base).takeIf { Files.isRegularFile(it) }
+        return searched().map { it.resolve("$base.schem") }.firstOrNull { Files.isRegularFile(it) }
     }
 
-    override fun names(): List<String> =
-        if (!directory.isDirectory()) emptyList()
-        else directory.listDirectoryEntries("*.schem").map { it.nameWithoutExtension }.sorted()
+    override fun names(): List<String> = searched()
+        .filter { it.isDirectory() }
+        .flatMap { folder -> folder.listDirectoryEntries("*.schem").map { it.nameWithoutExtension } }
+        .distinct()
+        .sorted()
+
+    private fun searched() = listOf(directory) + extraDirectories
 
     fun tempFile(suffix: String): Path {
         Files.createDirectories(tempDirectory)
